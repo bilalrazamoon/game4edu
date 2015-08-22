@@ -1,0 +1,13 @@
+<ion-view class="ignoreColorCombination">
+  <ion-content scroll="false">
+    <h2 class="text-center">Score: {{score}}</h2>
+    <div class="row">
+      <div class="col button" ng-click="submit(c.val1,c.val2)" ng-style="{'background-color':c.val1}" ng-repeat="c in current">
+        <span>{{c.val2}}</span>
+      </div>
+    </div>
+  </ion-content>
+  <ion-footer-bar class="progress-cont">
+    <div class="progress" ng-style="{'width':progress()}"></div>
+  </ion-footer-bar>
+</ion-view>

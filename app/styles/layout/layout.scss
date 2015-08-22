@@ -1,0 +1,44 @@
+body{
+  font-weight: normal;
+  font-family: Roboto, sans-serif;
+}
+.loader {
+  text-align: center;
+  width: 100%;
+  padding: 20px 0;
+}
+.tabs{
+  -webkit-align-content: flex-start;
+  justify-content: flex-start;
+}
+.tab-item{
+  max-width: none;
+  &,&.tab-item-active{
+    i{
+      display: none;
+    }
+    span{
+
+      font-size: 1.2em;
+      font-weight: 400;
+    }
+  }
+}
+
+
+.bar.bar-footer.progress-cont{
+  height:10px;
+  background-color: #ECEFF1;
+  border: none;
+  .progress{
+    width:0;
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right:0;
+    overflow:hidden;
+    transition: all 1s linear;
+    background-color:#455A64;
+  }
+}

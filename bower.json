@@ -1,0 +1,14 @@
+{
+  "name": "TestIonicGenerator",
+  "author": "Bilal <email@example.com>",
+  "private": "true",
+  "dependencies": {
+    "ionic": "driftyco/ionic-bower#1.1.0",
+    "angular": "~1.4.3",
+    "angular-resource": "1.4.3",
+    "ngCordova": "~0.1.20-alpha"
+  },
+  "resolutions": {
+    "angular": "~1.4.3"
+  }
+}

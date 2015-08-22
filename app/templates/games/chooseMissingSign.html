@@ -1,0 +1,21 @@
+<ion-view class="chooseMissingSign">
+  <ion-content scroll="false">
+    <h2 class="score">Score: {{score}}</h2>
+    <div class="game">
+      <div class="q">
+        <h2 class=text-center>{{current.val1}} &#9744; {{current.val2}} = {{current.ans}}</h2>
+      </div>
+      <div class="row">
+        <div class="col button button-positive" ng-click="submit('+')">+</div>
+        <div class="col button button-positive" ng-click="submit('-')">-</div>
+      </div>
+      <div class="row">
+        <div class="col button button-positive" ng-click="submit('*')">x</div>
+        <div class="col button button-positive" ng-click="submit('/')">&divide;</div>
+      </div>
+    </div>
+  </ion-content>
+  <ion-footer-bar class="progress-cont">
+    <div class="progress" ng-style="{'width':progress()}"></div>
+  </ion-footer-bar>
+</ion-view>
