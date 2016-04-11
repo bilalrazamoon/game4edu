@@ -2,13 +2,14 @@
 
 /**
  * @ngdoc function
- * @name TestIonicGenerator.controller:games:ignoreColorCombinationCtrl
+ * @name TestIonicGenerator.controller:ignoreColorCombinationCtrl
  * @description
  * # ignoreColorCombinationCtrl
  */
 
 angular.module('TestIonicGenerator')
-  .controller('ignoreColorCombinationCtrl', function ($scope, $ionicLoading, $timeout, $interval) {
+  .controller('ignoreColorCombinationCtrl', function ($scope, $ionicLoading, $timeout, $interval, $ionicPopup, $state, $sounds) {
+    var name="Ignore Color Combination";
     $scope.score = 0;
 
     //progress
@@ -21,7 +22,7 @@ angular.module('TestIonicGenerator')
     function random(a, b) {
       var r = Math.floor(Math.random() * colors.length);
       if (a == r || b == r)
-        return arguments.callee(a, b);
+        return generate(a, b);
       return r
     }
 
@@ -43,23 +44,59 @@ angular.module('TestIonicGenerator')
         $timeout(function () {
           $ionicLoading.hide();
           $scope.score++;
+          $sounds.correct();
           $scope.current = generate();
-        }, 300);
+        }, 500);
       }
       else {
         $ionicLoading.show({template: '<h4>Incorrect!</h4>'});
         $timeout(function () {
           $scope.score--;
+          $sounds.wrong();
           $ionicLoading.hide()
-        }, 300);
+        }, 500);
       }
     };
 
-    var interval = $interval(function () {
-      if (currentTime >= totalTime) {
-        $interval.cancel(interval);
-        $ionicLoading.show({template: '<h4>Game Over</h4>'});
-      }
-      currentTime++
-    }, 1000)
+    var gameOver = null;
+    var closePopup= function () {
+      gameOver.close();
+      gameOver=null;
+    };
+    var playGame = function () {
+      currentTime=0;
+      $scope.score=0;
+      angular.element(document.querySelector('.progress')).addClass('animation');
+      var interval = $interval(function () {
+        if (currentTime >= totalTime) {
+          $interval.cancel(interval);
+          gameOver = $ionicPopup.show({
+            template: '<h4>Game is Over!</h4>',
+            title: name,
+            scope: $scope,
+            buttons: [
+              {
+                text: 'Play Again',
+                type: 'button-assertive',
+                onTap: function (e) {
+                  angular.element(document.querySelector('.progress')).removeClass('animation');
+                  closePopup();
+                  $timeout(playGame)
+                }
+              },
+              {
+                text: 'Back',
+                type: 'button-assertive',
+                onTap: function (e) {
+                  closePopup();
+                  $state.go('app.home')
+                }
+              }
+            ]
+          });
+        }
+        currentTime++
+      }, 1000);
+    };
+    playGame();
   });

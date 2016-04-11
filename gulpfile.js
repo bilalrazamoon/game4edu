@@ -65,16 +65,25 @@ gulp.task('clean', function(done) {
 // precompile .scss and concat with ionic.css
 gulp.task('styles', function() {
 
-  var options = build ? { style: 'compressed' } : { style: 'expanded' };
+  var options = { style: build ? 'compressed' : 'expanded' };
 
   var sassStream = gulp.src('app/styles/main.scss')
+    //.pipe(plugins.sourcemaps.init())
+    .pipe(plugins.cached('external-css'))
     .pipe(plugins.sass(options))
+    .pipe(plugins.remember('external-css'));
+
+  var cssStream = gulp.src(require('./css.json'))
+    .pipe(plugins.cached('external-css'))
+    .pipe(plugins.csslint())
+    .pipe(plugins.csslint.reporter())
+    .pipe(plugins.remember('external-css'))
     .on('error', function(err) {
       console.log('err: ', err);
       beep();
     });
 
-
+/*
   // build ionic css dynamically to support custom themes
   var ionicStream = gulp.src('bower_components/ionic/scss/ionic.scss')
     .pipe(plugins.cached('ionic-styles'))
@@ -84,13 +93,15 @@ gulp.task('styles', function() {
     .on('error', function(err) {
         console.log('err: ', err);
         beep();
-      });
+      });*/
 
-  return streamqueue({ objectMode: true }, ionicStream, sassStream)
+  return streamqueue({ objectMode: true }, cssStream, sassStream)
+    .on('error', plugins.sass.logError)
     .pipe(plugins.autoprefixer('last 1 Chrome version', 'last 3 iOS versions', 'last 3 Android versions'))
     .pipe(plugins.concat('main.css'))
     .pipe(plugins.if(build, plugins.stripCssComments()))
     .pipe(plugins.if(build && !emulate, plugins.rev()))
+    //.pipe(plugins.sourcemaps.write())
     .pipe(gulp.dest(path.join(targetDir, 'styles')))
     .on('error', errorHandler);
 });
@@ -173,9 +184,9 @@ gulp.task('iconfont', function(){
 });
 
 // copy images
-gulp.task('images', function() {
-  return gulp.src('app/images/**/*.*')
-    .pipe(gulp.dest(path.join(targetDir, 'images')))
+gulp.task('assets', function() {
+  return gulp.src('app/assets/**/*.*')
+    .pipe(gulp.dest(path.join(targetDir, 'assets')))
 
     .on('error', errorHandler);
 });
@@ -299,7 +310,7 @@ gulp.task('ripple', ['scripts', 'styles', 'watchers'], function() {
 // start watchers
 gulp.task('watchers', function() {
   plugins.livereload.listen();
-  gulp.watch('app/styles/**/*.scss', ['styles']);
+  gulp.watch(['app/styles/**/*.scss', './css.json'], ['styles']);
   gulp.watch('app/fonts/**', ['fonts']);
   gulp.watch('app/icons/**', ['iconfont']);
   gulp.watch('app/images/**', ['images']);
@@ -324,7 +335,7 @@ gulp.task('default', function(done) {
       'fonts',
       'templates',
       'styles',
-      'images',
+      'assets',
       'vendor'
     ],
     'index',

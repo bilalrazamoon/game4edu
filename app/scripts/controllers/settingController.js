@@ -7,7 +7,7 @@
  * # SettingsController
  */
 angular.module('TestIonicGenerator')
-  .controller('SettingsController', function($scope) {
+  .controller('SettingController', function($scope) {
 
     // do something with $scope
 

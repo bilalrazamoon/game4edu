@@ -10,7 +10,12 @@
  */
 
 
-angular.module('TestIonicGenerator', ['ionic', 'ngCordova', 'ngResource'])
+angular.module('TestIonicGenerator', [
+  'ionic',
+  'ngCordova',
+  'ngResource',
+  'chart.js'
+])
 
   .run(function ($ionicPlatform) {
 
@@ -26,6 +31,9 @@ angular.module('TestIonicGenerator', ['ionic', 'ngCordova', 'ngResource'])
     $ionicConfigProvider.tabs.style('striped');
     $ionicConfigProvider.tabs.position('top');
     $ionicConfigProvider.navBar.alignTitle('left');
+    $ionicConfigProvider.form.toggle('small');
+    $ionicConfigProvider.form.checkbox('square');
+    $ionicConfigProvider.spinner.icon('spiral');
     // register $http interceptors, if any. e.g.
     // $httpProvider.interceptors.push('interceptor-name');
 
@@ -48,22 +56,22 @@ angular.module('TestIonicGenerator', ['ionic', 'ngCordova', 'ngResource'])
         }
       })
       .state('app.score', {
-        url: '/home',
+        url: '/score',
         cache: true,
         views: {
           'scoreContent': {
-            templateUrl: 'templates/views/settings.html',
-            controller: 'SettingsController'
+            templateUrl: 'templates/views/score.html',
+            controller: 'ScoreController'
           }
         }
       })
-      .state('app.settings', {
-        url: '/settings',
+      .state('app.setting', {
+        url: '/setting',
         cache: true,
         views: {
           'settingContent': {
-            templateUrl: 'templates/views/settings.html',
-            controller: 'SettingsController'
+            templateUrl: 'templates/views/setting.html',
+            controller: 'SettingController'
           }
         }
       })

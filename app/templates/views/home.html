@@ -6,20 +6,12 @@
 
     <ion-content>
       <ion-list>
-        <ion-item ui-sref="{{g.state}}" ng-repeat="g in gameList">
+        <ion-item class="item-icon-left" ui-sref="{{g.state}}" ng-repeat="g in gameList">
+          <i class="icon ion-ios-game-controller-b"></i>
           <h2>{{g.title}}</h2>
           <p>{{g.desc}}</p>
         </ion-item>
       </ion-list>
-        <!--<ion-refresher
-            pulling-text="Pull to refresh..."
-            on-refresh="fetchRandomText()">
-        </ion-refresher>
-        <div class="loader" ng-if="!myHTML">
-            <ion-spinner></ion-spinner>
-        </div>
-        <div class="content" ng-bind-html="myHTML">
-        </div>-->
     </ion-content>
 
 </ion-view>

@@ -1,4 +1,7 @@
 .ignoreColorCombination{
+  .scroll-content{
+    background-color: #DCE775;
+  }
   h2{
     padding: 2em 0;
   }
@@ -8,14 +11,13 @@
     left:0;
     right:0;
     bottom:0;
-    margin: auto;
     max-width:420px;
     height:200px;
     width:100%;
     margin:auto;
     .col{
       color: black;
-      font-size: 3em;
+      font-size: 2.5em;
       padding:0;
       margin: 5px;
       height:100%;

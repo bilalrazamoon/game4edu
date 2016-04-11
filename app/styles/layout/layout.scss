@@ -38,7 +38,18 @@ body{
     left: 0;
     right:0;
     overflow:hidden;
-    transition: all 1s linear;
     background-color:#455A64;
+    &.animation{
+      transition: all 1s linear;
+    }
+  }
+}
+
+.chart-container{
+  canvas{
+    display: flex;
+    margin: auto;
+    max-height: 350px;
+    max-width: 700px;
   }
 }

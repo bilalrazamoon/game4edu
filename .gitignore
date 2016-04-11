@@ -9,5 +9,6 @@ bower_components/
 .tmp/
 www/
 .sass-cache
+*.idea
 *.DS_Store
 *.log

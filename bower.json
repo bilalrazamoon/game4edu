@@ -6,7 +6,9 @@
     "ionic": "driftyco/ionic-bower#1.1.0",
     "angular": "~1.4.3",
     "angular-resource": "1.4.3",
-    "ngCordova": "~0.1.20-alpha"
+    "ngCordova": "~0.1.20-alpha",
+    "Chart.js": "~1.0.2",
+    "angular-chart.js": "~0.7.6"
   },
   "resolutions": {
     "angular": "~1.4.3"
